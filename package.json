@@ -1,0 +1,31 @@
+{
+  "name": "cube-logplex",
+  "version": "0.0.1",
+  "description": "A Cube emitter for Heroku logs.",
+  "keywords": [
+    "cube",
+    "logs",
+    "logplex",
+    "heroku"
+  ],
+  "author": {
+    "name": "Mike Bostock",
+    "url": "http://bost.ocks.org/mike"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mbostock/cube-heroku.git"
+  },
+  "dependencies": {
+    "cube": "0.2"
+  },
+  "devDependencies": {
+    "vows": "0.7.x"
+  },
+  "bin": {
+    "cube-logplex": "./bin/cube-logplex"
+  },
+  "scripts": {
+    "test": "node_modules/.bin/vows"
+  }
+}
