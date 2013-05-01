@@ -1,16 +1,18 @@
 # Route Heroku Logs to Cube
 
-First install [Cube](http://square.github.io/cube), along with [Node.js](http://nodejs.org) and [MongoDB](http://mongodb.org), if you haven’t already. This process is described on the [Cube wiki](https://github.com/square/cube/wiki).
+First install [Cube](http://square.github.io/cube), along with [Node.js](http://nodejs.org) and [MongoDB](http://mongodb.org), if you haven’t already. This process is described on the [Cube wiki](https://github.com/square/cube/wiki). I recommend cloning the Cube git repository so that you can easily customize the dashboard.
 
-Then, install cube-logplex:
+Then, install **cube-logplex** globally:
 
 ```bash
 npm install -g cube-logplex
 ```
 
-Lastly, `cd` to the directory containing your heroku application, and start the emitter by running `cube-logplex &`. Currently the emitter assumes that you have the Cube collector running on localhost:1080. You can then access the Cube dashboard at [localhost:1081](http://localhost:1081).
+Lastly, `cd` to the directory containing your heroku application, and start the log emitter by running `cube-logplex &`. This uses `heroku logs -t` internally, so you’ll need to have the Heroku toolbelt installed, too.
 
-You should then see all your [Heroku router info logs](https://devcenter.heroku.com/articles/logging) mapped to `heroku_info` events in Cube. For example:
+Currently the emitter assumes that you have the Cube collector running on localhost:1080. You can then access the Cube dashboard at [localhost:1081](http://localhost:1081). In the future, cube-logplex will support simple configuration and extension with custom emitters for app-specific events.
+
+When the emitter is running, you should see your [Heroku router info logs](https://devcenter.heroku.com/articles/logging) mapped to `heroku_info` events in Cube. For example:
 
 ```json
 { "type": "heroku_info", "time": "2013-05-01T21:42:15.611Z", "data": {"at": "info", "method": "GET", "path": "/mbostock/raw/4341954/thumbnail.png", "host": "bl.ocks.org", "fwd": "192.168.1.1", "dyno": "web.1", "connect": 0, "service": 3, "status": 200, "bytes": 9888}}
