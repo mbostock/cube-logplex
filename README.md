@@ -1,7 +1,5 @@
 # Route Heroku Logs to Cube
 
-## Installing
-
 First install [Cube](http://square.github.io/cube), along with [Node.js](http://nodejs.org) and [MongoDB](http://mongodb.org), if you haven’t already. This process is described on the [Cube wiki](https://github.com/square/cube/wiki).
 
 Then, install cube-logplex:
