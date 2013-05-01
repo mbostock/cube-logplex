@@ -1,11 +1,11 @@
 var vows = require("vows"),
     assert = require("assert"),
-    parser = require("../lib/cube-logplex/heroku-parser");
+    parser = require("../lib/cube-logplex/message-parser");
 
-var suite = vows.describe("cube-logplex.heroku-parser");
+var suite = vows.describe("cube-logplex.message-parser");
 
 suite.addBatch({
-  "heroku-parser": {
+  "message-parser": {
     "parses a key=value token": function() {
       assert.deepEqual(parser("at=info"), {"at": "info"});
     },
