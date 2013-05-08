@@ -4,15 +4,24 @@ var child = require("child_process"),
     lines = require("../lib/cube-logplex/lines"),
     router = require("../lib/cube-logplex/router");
 
-var logs = child.spawn("heroku", ["logs", "-t"]);
+restart();
 
-lines(logs.stdout).on("line", function(line) {
-  var i0 = line.indexOf(" "),
-      i1 = line.indexOf("[", i0),
-      i2 = line.indexOf("]", i1),
-      date = new Date(line.substring(0, i0)),
-      source = line.substring(i0 + 1, i1),
-      dyno = line.substring(i1 + 1, i2),
-      message = line.substring(i2 + 3);
-  if (!isNaN(date) && message) router(date, source, dyno, message);
-});
+function restart() {
+  var logs = child.spawn("heroku", ["logs", "-t"]);
+
+  lines(logs.stdout).on("line", function(line) {
+    var i0 = line.indexOf(" "),
+        i1 = line.indexOf("[", i0),
+        i2 = line.indexOf("]", i1),
+        date = new Date(line.substring(0, i0)),
+        source = line.substring(i0 + 1, i1),
+        dyno = line.substring(i1 + 1, i2),
+        message = line.substring(i2 + 3);
+    if (!isNaN(date) && message) router(date, source, dyno, message);
+  });
+
+  logs.on("exit", function(code, signal) {
+    console.warn("heroku process terminated with code " + code + "; restarting.");
+    setTimeout(restart, 5000);
+  });
+}
