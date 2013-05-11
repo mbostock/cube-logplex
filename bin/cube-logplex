@@ -34,7 +34,7 @@ function restart() {
 
   function idle() {
     console.warn("heroku process stopped responding; restarting.");
-    child.kill();
+    logs.kill();
     restart();
   }
 }
