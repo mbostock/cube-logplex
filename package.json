@@ -1,6 +1,6 @@
 {
   "name": "cube-logplex",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "A Cube emitter for Heroku logs.",
   "keywords": [
     "cube",

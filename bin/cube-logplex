@@ -7,7 +7,8 @@ var child = require("child_process"),
 restart();
 
 function restart() {
-  var logs = child.spawn("heroku", ["logs", "-t"]);
+  var logs = child.spawn("heroku", ["logs", "-t"]),
+      timeout;
 
   lines(logs.stdout).on("line", function(line) {
     var i0 = line.indexOf(" "),
@@ -18,10 +19,22 @@ function restart() {
         dyno = line.substring(i1 + 1, i2),
         message = line.substring(i2 + 3);
     if (!isNaN(date) && message) router(date, source, dyno, message);
+    clearTimeout(timeout);
+    timeout = setTimeout(idle, 30000);
+  });
+
+  logs.on("error", function(error) {
+    console.warn(error);
   });
 
   logs.on("exit", function(code, signal) {
     console.warn("heroku process terminated with code " + code + "; restarting.");
     setTimeout(restart, 5000);
   });
+
+  function idle() {
+    console.warn("heroku process stopped responding; restarting.");
+    child.kill();
+    restart();
+  }
 }
