@@ -35,6 +35,7 @@ function restart() {
 
   function idle() {
     util.log("heroku process stopped responding; restarting.");
+    logs.removeAllListeners("exit");
     logs.kill();
     setTimeout(restart, 30000);
   }
