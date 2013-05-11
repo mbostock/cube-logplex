@@ -8,7 +8,7 @@ var util = require("util"),
 restart();
 
 function restart() {
-  var logs = child.spawn("heroku", ["logs", "-t"]),
+  var logs = child.spawn("heroku", ["logs", "-t", "-n", "0"]),
       idleTimeout;
 
   lines(logs.stdout).on("line", function(line) {
